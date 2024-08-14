@@ -18,4 +18,8 @@ This project is made so all the elements are displayed correctly on popular scre
 
 https://github.com/cmuench55/se_project_aroundtheus
 
+**Link to video explaining project**
+
+
+
 
