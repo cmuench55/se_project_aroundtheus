@@ -17,7 +17,7 @@ This project was to show our ability to make a webpage work and adjust to fit mu
 
 **GitHub Pages**
 
-https://cmuench55.github.io/se_project_aroundtheus/
+* https://cmuench55.github.io/se_project_aroundtheus/
 
 **Link to video explaining project**
 
