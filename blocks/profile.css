@@ -50,6 +50,7 @@
     margin-left: auto;
     cursor: pointer;
     border: 2px solid #ffffff;
+    border-radius: 2px;
 }
 
 .profile__add-button:hover {
@@ -101,7 +102,7 @@
 
     .profile__description {
         width: 100%;
-        margin-bottom: 14pxd 17px 36px;
+        margin-bottom: 14px 17px 36px;
         text-align: center;
         font-size: 14px;
         line-height: 16.94px;

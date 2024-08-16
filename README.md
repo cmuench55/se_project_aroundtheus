@@ -2,21 +2,22 @@
 
 ### Overview  
 
-* Intro  
-* Figma  
-* Images  
-  
-**Intro**
-  
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
-  
-**Figma**  
-  
-* [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  
-  
-**Link to GitHub**
+This project was to show our ability to make a webpage work and adjust to fit multiple different common screen sizes i.e. mobile, tablet, and desktop screens.
 
-https://github.com/cmuench55/se_project_aroundtheus
+
+
+## Technologies Used
+
+* HTML5
+* CSS
+* Responsive design for different screen sizes using @media queries 
+* Grid layout
+* Flexbox
+* BEM file structuring
+
+**GitHub Pages**
+
+https://cmuench55.github.io/se_project_aroundtheus/
 
 **Link to video explaining project**
 
