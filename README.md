@@ -1,12 +1,12 @@
 # Project 3: Around The U.S.
 
-### Overview  
+## Overview  
 
 This project was to show our ability to make a webpage work and adjust to fit multiple different common screen sizes i.e. mobile, tablet, and desktop screens.
 
 
 
-## Technologies Used
+### Technologies Used
 
 * HTML5
 * CSS
