@@ -7,14 +7,10 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 22px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 67px;
-  margin-bottom: 60px;
 }
 
 .footer__text {
-  margin: 0;
+  margin: 0 19px 0;
   color: rgb(84, 84, 84, 0.7);
 }
 
@@ -24,6 +20,6 @@
     margin-top: 48px;
     margin-bottom: 36px;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 14px;
   }
 }
