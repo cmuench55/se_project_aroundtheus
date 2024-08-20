@@ -99,7 +99,7 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    margin: 30px 19px 36px 19px;
+    margin: 30px 19px 26px 19px;
   }
 
   .profile__description {
@@ -149,6 +149,7 @@
 
   .profile__info {
     padding: 10px;
+    margin-bottom: 26px;
   }
 
   .profile__description {
