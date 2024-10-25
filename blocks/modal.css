@@ -10,9 +10,9 @@
   padding: 0 19px;
 }
 
-/* .modal__opened {
-    display: flex;
-} */
+.modal_opened {
+    visibility: visible;
+} 
 
 .modal__container {
   position: relative;
@@ -24,7 +24,7 @@
   box-sizing: border-box;
 }
 
-.modal__close {
+.modal__close-btn {
   background-image: url(../images/Close\ Modal.svg);
   border: none;
   position: absolute;
