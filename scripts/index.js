@@ -34,6 +34,7 @@ function openModal() {
 }
 
 function closeModal() {
+    console.log('close button clicked');
     profileEditModal.classList.remove("modal_opened");
 }
 
