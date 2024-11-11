@@ -80,10 +80,20 @@
   margin-top: 48px;
 }
 
+.modal__button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.modal__close-btn:hover {
+  opacity: 0.6;
+}
+
 @media screen and (min-width: 320px) and (max-width: 620px) {
   .modal__container {
     padding: 25px 22px;
     max-width: 282px;
+    max-height: 322px;
   }
 
   .modal__heading {
@@ -92,13 +102,15 @@
     margin-top: 0;
     margin-bottom: 75px;
     font-size: 18px;
+    font-weight: 900;
+    line-height: 21.78px;
   }
 
-  .modal__close {
+  .modal__close-btn {
     width: 26px;
     height: 26px;
     rotate: 90;
-    left: calc(100% - 18.62px);
+    left: calc(100% - 36.38px);
     bottom: calc(100% + 13.62px);
   }
 
@@ -111,14 +123,16 @@
     padding-bottom: 13px;
     font-size: 14px;
     line-height: 16.94px;
-    transform: rotate(90);
   }
 
   .modal__button {
     max-width: 238px;
     height: 46px;
-    margin-top: 45px;
+    margin-top: 2px;
     font-size: 14px;
     line-height: 16.94px;
+    padding: 0;
+    margin: 0;
   }
+
 }

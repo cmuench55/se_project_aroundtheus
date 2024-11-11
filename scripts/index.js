@@ -73,14 +73,13 @@ function openModal() {
   profileEditModal.classList.add("modal_opened");
 }
 
-function closeModal() {
-  console.log("close button clicked");
-  closePopup();
-}
+// function closeModal() {
+//   closePopup();
+// }
 
 profileEditBtn.addEventListener("click", openModal);
 
-profileCloseModalBtn.addEventListener("click", closeModal);
+profileCloseModalBtn.addEventListener("click", closePopup);
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
