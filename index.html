@@ -47,6 +47,7 @@
       </footer>
     </div>
 
+<!-- Profile Edit Modal -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button type='button' class="modal__close-btn"></button>
@@ -71,6 +72,7 @@
       </div>
     </div>
 
+<!-- Add Card Modal -->
     <div class="modal" id="add-card-modal">
       <div class="modal__container">
         <button type="button" class="modal__close-btn" id="add-card-close-modal"></button>
@@ -102,6 +104,15 @@
 
     </div>
 
+    <!--card image modal-->
+    <div class="modal" id="preview-modal">
+      <div class="modal__container modal__container_image">
+        <button class="modal__close-btn" id="image-close-modal"></button>
+        <img src="." alt="." class="modal__image" id="modal-image"/>
+        <p class="modal__caption" id="modal-caption"></p>
+      </div>
+    </div>
+
     <template id="card-template">
       <li class="card">
         <img
@@ -109,6 +120,7 @@
           alt=""
           class="card__image"
         />
+        <button class="card__delete-button"></button>
         <div class="card__description">
           <h2 class="card__title"></h2>
           <button class="card__like-button" type="button"></button>
