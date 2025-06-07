@@ -32,8 +32,8 @@ const initialCards = [
   const cardListEl = document.querySelector(".cards__list");
   const profileEditModal = document.querySelector("#profile-edit-modal");
   const addCardModal = document.querySelector("#add-card-modal");
-  const addCardFormElement = addCardModal.querySelector(".modal__form");
-  const profileEditForm = profileEditModal.querySelector(".modal__form");
+  const addCardFormElement = document.forms["add-card-form"];
+  const profileEditForm = document.forms["edit-profile-form"];
   const previewModal = document.querySelector("#preview-modal");
 
   //Buttons and other DOM nodes
