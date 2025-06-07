@@ -53,12 +53,10 @@ const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-const addCardForm = document.querySelector("#add-card-form");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const cardTitleInput = addCardFormElement.querySelector(
-  ".modal__input_type_title"
-);
+  ".modal__input_type_title");
 const cardUrlInput = addCardFormElement.querySelector(".modal__input_type_url");
 
 //Functions
