@@ -35,11 +35,14 @@
             ></button>
             <p class="profile__description">Explorer</p>
           </div>
-          <button class="profile__add-button" id="add-card-button" type="button"></button>
+          <button
+            class="profile__add-button"
+            id="add-card-button"
+            type="button"
+          ></button>
         </section>
         <section class="cards page__section">
-          <ul class="cards__list">
-          </ul>
+          <ul class="cards__list"></ul>
         </section>
       </main>
       <footer class="footer page__section">
@@ -47,10 +50,10 @@
       </footer>
     </div>
 
-<!-- Profile Edit Modal -->
+    <!-- Profile Edit Modal -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button type='button' class="modal__close-btn"></button>
+        <button type="button" class="modal__close-btn"></button>
         <h2 class="modal__heading">Edit Profile</h2>
         <form class="modal__form" name="edit-profile-form">
           <input
@@ -60,7 +63,10 @@
             id="profile-title-input"
             placeholder="Jacques Cousteau"
             required
+            minlength="2"
+            maxlength="40"
           />
+          <span class="modal__error" id="profile-title-input-error"></span>
           <input
             class="modal__input"
             type="text"
@@ -68,26 +74,39 @@
             id="profile-description-input"
             placeholder="Explorer"
             required
+            minlength="2"
+            maxlength="200"
           />
+          <span
+            class="modal__error"
+            id="profile-description-input-error"
+          ></span>
           <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
     </div>
 
-<!-- Add Card Modal -->
+    <!-- Add Card Modal -->
     <div class="modal" id="add-card-modal">
       <div class="modal__container">
-        <button type="button" class="modal__close-btn" id="add-card-close-modal"></button>
+        <button
+          type="button"
+          class="modal__close-btn"
+          id="add-card-close-modal"
+        ></button>
         <h2 class="modal__heading">New Place</h2>
         <form class="modal__form" name="add-card-form" id="add-card-form">
           <input
-            class="modal__input modal__input_type_title"          
+            class="modal__input modal__input_type_title"
             type="text"
             name="title"
             placeholder="Title"
             id="card-title-input"
             required
+            minlength="1"
+            maxlength="30"
           />
+          <span class="modal__error" id="card-title-input-error"></span>
           <input
             class="modal__input modal__input_type_url"
             type="url"
@@ -96,32 +115,30 @@
             id="card-link-input"
             required
           />
-          <button class="button modal__button" type="submit" id="modal-submit-btn">
+          <span class="modal__error" id="card-link-input-error"></span>
+          <button
+            class="modal__button modal__submit-btn_disabled"
+            type="submit"
+            id="modal-submit-btn"
+          >
             Create
           </button>
-
         </form>
-
       </div>
-
     </div>
 
-    <!--card image modal-->
+    <!--Card image modal-->
     <div class="modal" id="preview-modal">
       <div class="modal__container modal__container_image">
         <button class="modal__close-btn" id="image-close-modal"></button>
-        <img src="." alt="." class="modal__image" id="modal-image"/>
+        <img src="." alt="." class="modal__image" id="modal-image" />
         <p class="modal__caption" id="modal-caption"></p>
       </div>
     </div>
 
     <template id="card-template">
       <li class="card">
-        <img
-          src=""
-          alt=""
-          class="card__image"
-        />
+        <img src="" alt="" class="card__image" />
         <button class="card__delete-button"></button>
         <div class="card__description">
           <h2 class="card__title"></h2>
@@ -131,5 +148,6 @@
     </template>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>
