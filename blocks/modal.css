@@ -14,9 +14,9 @@
 }
 
 .modal_opened {
-    visibility: visible;
-    opacity: 1;
-} 
+  visibility: visible;
+  opacity: 1;
+}
 
 .modal__container {
   position: relative;
@@ -29,7 +29,7 @@
 }
 
 .modal__close-btn {
-  background-image: url(../images/Close\ Modal.svg);
+  background-image: url(../images/close-modal.svg);
   border: none;
   position: absolute;
   bottom: calc(100% + 5px);
@@ -131,13 +131,10 @@
   opacity: 0.5;
 }
 
-
-
 @media screen and (min-width: 320px) and (max-width: 620px) {
   .modal__container {
     padding: 25px 22px;
     max-width: 282px;
-    max-height: 322px;
   }
 
   .modal__heading {
@@ -153,7 +150,6 @@
   .modal__close-btn {
     width: 26px;
     height: 26px;
-    rotate: 90;
     left: calc(100% - 36.38px);
     bottom: calc(100% + 13.62px);
   }
@@ -180,9 +176,8 @@
   }
 
   .modal__container_image {
-  max-width: none;
-  max-height: none;
-  width: 100%;
-  
+    max-width: none;
+    max-height: none;
+    width: 100%;
   }
 }
