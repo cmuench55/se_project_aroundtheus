@@ -92,7 +92,7 @@ addFormValidator.enableValidation();
 
 // Functions
 
-const card = new Card(cardData, cardSelector);
+const card = new Card(cardData, cardSelector, handleImageClick);
 card.getView();
 
 function closeModal(modal) {
@@ -172,6 +172,17 @@ function handleEscKey(evt) {
       closeModal(openModal);
     }
   }
+}
+
+function handleImageClick(name, link) {
+  const previewModalImageEl = previewModal.querySelector(".modal__image");
+  const previewModalCaptionEl = previewModal.querySelector(".modal__caption");
+
+  previewModalImageEl.src = link;
+  previewModalImageEl.alt = name;
+  previewModalCaptionEl.textContent = name;
+
+  openModal(previewModal);
 }
 
 // Form Listeners

@@ -1,8 +1,8 @@
 class Card {
-  constructor(cardData, cardSelector) {
+  constructor(cardData, cardSelector, handleImageClick) {
     this._name = cardData.name;
     this._link = cardData.link;
-
+    this._handleImageClick = handleImageClick;
     this._cardSelector = cardSelector;
   }
 
@@ -25,6 +25,11 @@ class Card {
       .querySelector(".card__image")
       .addEventListener("click", () => {
         alert(`Preview: ${this._name}`);
+      });
+    this._element
+      .querySelector(".card__image")
+      .addEventListener("click", () => {
+        this._handleImageClick(this._name, this._link);
       });
   }
 
