@@ -1,3 +1,7 @@
+import FormValidator from "./FormValidator.js";
+
+import Card from "./card.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -24,6 +28,13 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
+const cardSelector = "#card-template";
 
 //Elements
 
@@ -60,7 +71,29 @@ const cardTitleInput = addCardFormElement.querySelector(
 );
 const cardUrlInput = addCardFormElement.querySelector(".modal__input_type_url");
 
-//Functions
+//Validation
+
+const validationConfig = {
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__submit-btn_disabled",
+  inputErrorClass: ".modal__input_type_error",
+  errorClass: ".modal__error_visible",
+};
+
+const editFormElement = profileEditForm;
+const addFormElement = addCardFormElement;
+
+const editFormValidator = new FormValidator(validationConfig, editFormElement);
+const addFormValidator = new FormValidator(validationConfig, addFormElement);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
+// Functions
+
+const card = new Card(cardData, cardSelector);
+card.getView();
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
