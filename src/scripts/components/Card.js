@@ -6,6 +6,13 @@ class Card {
     this._cardSelector = cardSelector;
   }
 
+  _getTemplate() {
+    return document
+      .querySelector(this._cardSelector)
+      .content.querySelector(".card")
+      .cloneNode(true);
+  }
+
   _setEventListeners() {
     this._element
       .querySelector(".card__like-button")
@@ -24,31 +31,20 @@ class Card {
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        alert(`Preview: ${this._name}`);
-      });
-    this._element
-      .querySelector(".card__image")
-      .addEventListener("click", () => {
         this._handleImageClick(this._name, this._link);
       });
   }
 
-  _getTemplate() {
-    const template = document
-      .querySelector(this._cardSelector)
-      .content.querySelector(".card")
-      .cloneNode(true);
-    return template;
-  }
-
   getView() {
     this._element = this._getTemplate();
-    this._setEventListeners();
     const imageEl = this._element.querySelector(".card__image");
     const titleEl = this._element.querySelector(".card__title");
+
     imageEl.src = this._link;
     imageEl.alt = this._name;
     titleEl.textContent = this._name;
+
+    this._setEventListeners();
     return this._element;
   }
 }
