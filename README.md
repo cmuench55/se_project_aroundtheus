@@ -43,9 +43,8 @@ Around The U.S. is a responsive web application that showcases beautiful landsca
 **GitHub Pages**
 
 * [Live Demo](https://cmuench55.github.io/se_project_aroundtheus/)
+* [AroundTheUS GitHub Pages](https://cmuench55.github.io/se_project_aroundtheus/)
 
 **Link to video explaining project**
 
 * [Project Explanation Video](https://drive.google.com/file/d/1eEI68bqSXxxdM1s74KEJWqOcImwtNiNx/view?usp=sharing)
-
-
