@@ -1,4 +1,4 @@
-# Project 8: Around The U.S.
+# Project 9: Around The U.S.
 
 ## Overview
 
@@ -7,10 +7,10 @@ Around The U.S. is a responsive web application that showcases beautiful landsca
 ## Features
 
 - **Responsive Design**: Adapts seamlessly to mobile, tablet, and desktop screen sizes
-- **Interactive Card Gallery**: Display 6 initial landscape cards with the ability to add more
+- **Interactive Card Gallery**: Loads cards from the server and supports adding more through the API
 - **Card Management**: Like/unlike cards and delete cards with interactive buttons
 - **Add New Cards**: Form validation for adding new landscape cards with image URLs
-- **Profile Editing**: Edit user name and description with form validation
+- **Profile Editing**: Edit user name and description through the API with form validation
 - **Image Preview**: Click on any card to view a larger image preview in a modal
 - **Form Validation**: Real-time validation with custom error messages
 - **Smooth Animations**: CSS transitions for modal open/close effects

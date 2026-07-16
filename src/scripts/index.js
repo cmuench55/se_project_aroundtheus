@@ -1,11 +1,12 @@
 import "../pages/index.css";
-import { initialCards, validationConfig, cardSelector } from "./utils/constants.js";
+import { validationConfig, cardSelector } from "./utils/utils.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import Section from "./Section.js";
 import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImages from "./PopupWithImages.js";
 import UserInfo from "./UserInfo.js";
+import { createCard, getFallbackCards, getInitialData, updateUserProfile } from "./api.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const addCardButton = document.querySelector("#add-card-button");
@@ -53,28 +54,85 @@ const cardSection = new Section(
   ".cards__list"
 );
 
-cardSection.renderItems(initialCards);
+function renderCard(cardItem) {
+  const card = new Card(cardItem, cardSelector, (name, link) => {
+    imagePreviewPopup.open(name, link);
+  });
+
+  cardSection.addItem(card.getView());
+}
+
+function loadInitialContent() {
+  getInitialData()
+    .then(({ user, cards }) => {
+      if (user) {
+        userInfo.setUserInfo({
+          name: user.name,
+          about: user.about,
+        });
+      }
+
+      cards.forEach((cardItem) => {
+        renderCard({
+          name: cardItem.name,
+          link: cardItem.link,
+        });
+      });
+    })
+    .catch((error) => {
+      console.error("Unable to load remote data, using local fallback.", error);
+      getFallbackCards().forEach((cardItem) => {
+        renderCard(cardItem);
+      });
+    });
+}
 
 function handleProfileEditSubmit(formValues) {
-  userInfo.setUserInfo({
+  const submitButton = profileEditForm.querySelector(".modal__button");
+  submitButton.textContent = "Saving...";
+  submitButton.disabled = true;
+
+  updateUserProfile({
     name: formValues.title,
     about: formValues.description,
-  });
-  editProfilePopup.close();
+  })
+    .then((profile) => {
+      userInfo.setUserInfo({
+        name: profile.name,
+        about: profile.about,
+      });
+      editProfilePopup.close();
+    })
+    .catch((error) => {
+      console.error("Profile update failed.", error);
+    })
+    .finally(() => {
+      submitButton.textContent = "Save";
+      submitButton.disabled = false;
+    });
 }
 
 function handleAddCardFormSubmit(formValues) {
-  const newCard = new Card(
-    { name: formValues.title, link: formValues.link }, 
-    cardSelector,
-    (name, link) => {
-      imagePreviewPopup.open(name, link);
-    }
-  );
+  const submitButton = addCardForm.querySelector(".modal__button");
+  submitButton.textContent = "Creating...";
+  submitButton.disabled = true;
 
-  cardSection.addItem(newCard.getView());
-  addCardPopup.close();
-  addFormValidator.disableSubmitButton();
+  createCard({ name: formValues.title, link: formValues.link })
+    .then((newCard) => {
+      renderCard({
+        name: newCard.name,
+        link: newCard.link,
+      });
+      addCardPopup.close();
+      addFormValidator.disableSubmitButton();
+    })
+    .catch((error) => {
+      console.error("Card creation failed.", error);
+    })
+    .finally(() => {
+      submitButton.textContent = "Create";
+      submitButton.disabled = false;
+    });
 }
 
 profileEditButton.addEventListener("click", () => {
@@ -91,3 +149,5 @@ addCardButton.addEventListener("click", () => {
   addFormValidator.resetValidation();
   addCardPopup.open();
 });
+
+loadInitialContent();
