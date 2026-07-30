@@ -134,7 +134,9 @@ function loadInitialContent() {
         });
       }
 
-      cards.forEach((cardItem) => {
+      const cardList = Array.isArray(cards) ? cards : [cards];
+
+      cardList.forEach((cardItem) => {
         renderCard({
           _id: cardItem._id,
           name: cardItem.name,
