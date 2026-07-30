@@ -7,7 +7,7 @@ import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImages from "./PopupWithImages.js";
 import PopupWithConfirmation from "./PopupWithConfirmation.js";
 import UserInfo from "./UserInfo.js";
-import Api from "./api.js";
+import Api, { getFallbackAppData } from "./api.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const avatarEditButton = document.querySelector("#avatar-edit-button");
@@ -126,6 +126,28 @@ function loadInitialContent() {
   api
     .getAppInfo()
     .then(([user, cards]) => {
+      const cardList = Array.isArray(cards) ? cards : [cards];
+      const hasPlaceholderUser = /placeholder/i.test(user?.name || "");
+      const hasServerCards = cardList.some((cardItem) => cardItem && cardItem.name && cardItem.link);
+
+      if (hasPlaceholderUser || !hasServerCards) {
+        const fallbackData = getFallbackAppData();
+        userInfo.setUserInfo({
+          name: fallbackData.user.name,
+          about: fallbackData.user.about,
+          avatar: fallbackData.user.avatar,
+        });
+
+        fallbackData.cards.forEach((cardItem) => {
+          renderCard({
+            name: cardItem.name,
+            link: cardItem.link,
+          });
+        });
+
+        return;
+      }
+
       if (user) {
         userInfo.setUserInfo({
           name: user.name,
@@ -133,8 +155,6 @@ function loadInitialContent() {
           avatar: user.avatar,
         });
       }
-
-      const cardList = Array.isArray(cards) ? cards : [cards];
 
       cardList.forEach((cardItem) => {
         renderCard({

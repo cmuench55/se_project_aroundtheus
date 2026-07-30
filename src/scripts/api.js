@@ -1,3 +1,33 @@
+import avatarImage from "../images/jacques-cousteau.jpg";
+import baldMountainsImage from "../images/bald-mountains.svg";
+import lagoDiBraiesImage from "../images/lago-di-braies.svg";
+import lakeLouiseImage from "../images/lake-louise.svg";
+import latemarImage from "../images/latemar.svg";
+import vanoiseNationalParkImage from "../images/vanoise-national-park.svg";
+import yosemiteValleyImage from "../images/yosemite-valley.svg";
+
+const fallbackUser = {
+  name: "Jacques Cousteau",
+  about: "Explorer",
+  avatar: avatarImage,
+};
+
+const fallbackCards = [
+  { name: "Yosemite Valley", link: yosemiteValleyImage },
+  { name: "Lake Louise", link: lakeLouiseImage },
+  { name: "Bald Mountains", link: baldMountainsImage },
+  { name: "Latemar", link: latemarImage },
+  { name: "Vanoise National Park", link: vanoiseNationalParkImage },
+  { name: "Lago di Braies", link: lagoDiBraiesImage },
+];
+
+export function getFallbackAppData() {
+  return {
+    user: fallbackUser,
+    cards: fallbackCards,
+  };
+}
+
 export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
