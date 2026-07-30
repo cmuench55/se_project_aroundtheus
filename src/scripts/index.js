@@ -17,6 +17,7 @@ const addCardForm = document.forms["add-card-form"];
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   aboutSelector: ".profile__description",
+  avatarSelector: ".profile__image",
 });
 
 const api = new Api({
