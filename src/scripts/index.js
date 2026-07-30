@@ -118,6 +118,7 @@ function loadInitialContent() {
         userInfo.setUserInfo({
           name: user.name,
           about: user.about,
+          avatar: user.avatar,
         });
       }
 
