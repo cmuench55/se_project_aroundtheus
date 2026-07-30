@@ -42,6 +42,7 @@ class Card {
     const imageEl = this._element.querySelector(".card__image");
     const titleEl = this._element.querySelector(".card__title");
 
+    this._element.dataset.cardId = this._id || "";
     imageEl.src = this._link;
     imageEl.alt = this._name;
     titleEl.textContent = this._name;

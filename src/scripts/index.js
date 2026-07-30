@@ -22,7 +22,7 @@ const userInfo = new UserInfo({
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/web_es_cohort_05",
   headers: {
-    authorization: "f455c59d-84dc-4ca4-92e9-7f63889c99e2",
+    authorization: "1b3cac0a-3105-41b5-b45b-c70fe76e4355",
     "Content-Type": "application/json",
   },
 });
@@ -47,6 +47,12 @@ const addCardPopup = new PopupWithForm({
 const deleteConfirmPopup = new PopupWithConfirmation({
   popupSelector: "#confirm-modal",
   handleConfirm: (cardId, cardElement) => {
+    if (!cardId) {
+      cardElement.remove();
+      deleteConfirmPopup.close();
+      return;
+    }
+
     api
       .deleteCard(cardId)
       .then(() => {
@@ -55,6 +61,8 @@ const deleteConfirmPopup = new PopupWithConfirmation({
       })
       .catch((error) => {
         console.error("Card deletion failed.", error);
+        cardElement.remove();
+        deleteConfirmPopup.close();
       });
   },
 });

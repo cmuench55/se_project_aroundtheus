@@ -8,7 +8,7 @@ export default class PopupWithConfirmation extends Popup {
   }
 
   open(cardId, cardElement) {
-    this._cardId = cardId;
+    this._cardId = cardId || cardElement?.dataset?.cardId;
     this._cardElement = cardElement;
     super.open();
   }
