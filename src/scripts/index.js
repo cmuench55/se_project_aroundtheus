@@ -1,5 +1,5 @@
 import "../pages/index.css";
-import { validationConfig, cardSelector, initialCards } from "./utils/utils.js";
+import { validationConfig, cardSelector } from "./utils/utils.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import Section from "./Section.js";
@@ -7,7 +7,7 @@ import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImages from "./PopupWithImages.js";
 import PopupWithConfirmation from "./PopupWithConfirmation.js";
 import UserInfo from "./UserInfo.js";
-import Api from "./Api.js";
+import Api from "./api.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const addCardButton = document.querySelector("#add-card-button");
@@ -20,7 +20,7 @@ const userInfo = new UserInfo({
 });
 
 const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/web_es_cohort_05",
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
     authorization: "1b3cac0a-3105-41b5-b45b-c70fe76e4355",
     "Content-Type": "application/json",
@@ -128,10 +128,7 @@ function loadInitialContent() {
       });
     })
     .catch((error) => {
-      console.error("Unable to load remote data, using local fallback.", error);
-      initialCards.forEach((cardItem) => {
-        renderCard(cardItem);
-      });
+      console.error("Unable to load cards from the server.", error);
     });
 }
 
