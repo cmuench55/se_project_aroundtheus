@@ -98,7 +98,7 @@ const cardSection = new Section(
         (cardId, cardElement) => {
           deleteConfirmPopup.open(cardId, cardElement);
         },
-        (cardId, isLiked) => api.changeLikeCardStatus(cardId, !isLiked)
+        (cardId, shouldLike) => api.changeLikeCardStatus(cardId, shouldLike)
       );
       cardSection.addItem(card.getView());
     },
@@ -116,7 +116,7 @@ function renderCard(cardItem) {
     (cardId, cardElement) => {
       deleteConfirmPopup.open(cardId, cardElement);
     },
-    (cardId, isLiked) => api.changeLikeCardStatus(cardId, !isLiked)
+    (cardId, shouldLike) => api.changeLikeCardStatus(cardId, shouldLike)
   );
 
   cardSection.addItem(card.getView());
@@ -161,6 +161,7 @@ function loadInitialContent() {
           _id: cardItem._id,
           name: cardItem.name,
           link: cardItem.link,
+          isLiked: cardItem.isLiked,
         });
       });
     })
@@ -228,6 +229,7 @@ function handleAddCardFormSubmit(formValues) {
         _id: newCard._id,
         name: newCard.name,
         link: newCard.link,
+        isLiked: newCard.isLiked,
       });
       addCardPopup.close();
       addFormValidator.disableSubmitButton();

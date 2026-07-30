@@ -25,15 +25,25 @@ class Card {
   _setEventListeners() {
     const likeButton = this._element.querySelector(".card__like-button");
     likeButton.addEventListener("click", () => {
+      if (!this._id) {
+        this._isLiked = !this._isLiked;
+        this._updateLikeButton();
+        return;
+      }
+
       if (!this._handleLikeClick) {
         this._isLiked = !this._isLiked;
         this._updateLikeButton();
         return;
       }
 
-      this._handleLikeClick(this._id, this._isLiked)
+      this._handleLikeClick(this._id, !this._isLiked)
         .then((updatedCard) => {
-          this._isLiked = Boolean(updatedCard.isLiked);
+          if (typeof updatedCard?.isLiked === "boolean") {
+            this._isLiked = updatedCard.isLiked;
+          } else {
+            this._isLiked = !this._isLiked;
+          }
           this._updateLikeButton();
         })
         .catch((error) => {
