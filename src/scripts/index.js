@@ -10,8 +10,10 @@ import UserInfo from "./UserInfo.js";
 import Api from "./api.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
+const avatarEditButton = document.querySelector("#avatar-edit-button");
 const addCardButton = document.querySelector("#add-card-button");
 const profileEditForm = document.forms["edit-profile-form"];
+const avatarEditForm = document.forms["edit-avatar-form"];
 const addCardForm = document.forms["add-card-form"];
 
 const userInfo = new UserInfo({
@@ -29,6 +31,7 @@ const api = new Api({
 });
 
 const editFormValidator = new FormValidator(validationConfig, profileEditForm);
+const avatarFormValidator = new FormValidator(validationConfig, avatarEditForm);
 const addFormValidator = new FormValidator(validationConfig, addCardForm);
 
 const imagePreviewPopup = new PopupWithImages({
@@ -38,6 +41,11 @@ const imagePreviewPopup = new PopupWithImages({
 const editProfilePopup = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
   handleFormSubmit: handleProfileEditSubmit,
+});
+
+const avatarEditPopup = new PopupWithForm({
+  popupSelector: "#avatar-edit-modal",
+  handleFormSubmit: handleAvatarEditSubmit,
 });
 
 const addCardPopup = new PopupWithForm({
@@ -69,11 +77,13 @@ const deleteConfirmPopup = new PopupWithConfirmation({
 });
 
 editProfilePopup.setEventListeners();
+avatarEditPopup.setEventListeners();
 addCardPopup.setEventListeners();
 deleteConfirmPopup.setEventListeners();
 imagePreviewPopup.setEventListeners();
 
 editFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 const cardSection = new Section(
@@ -164,6 +174,26 @@ function handleProfileEditSubmit(formValues) {
     });
 }
 
+function handleAvatarEditSubmit(formValues) {
+  const submitButton = avatarEditForm.querySelector(".modal__button");
+  submitButton.textContent = "Saving...";
+  submitButton.disabled = true;
+
+  api
+    .updateAvatar({ avatar: formValues.avatar })
+    .then((profile) => {
+      userInfo.setUserInfo({ avatar: profile.avatar });
+      avatarEditPopup.close();
+    })
+    .catch((error) => {
+      console.error("Avatar update failed.", error);
+    })
+    .finally(() => {
+      submitButton.textContent = "Save";
+      submitButton.disabled = false;
+    });
+}
+
 function handleAddCardFormSubmit(formValues) {
   const submitButton = addCardForm.querySelector(".modal__button");
   submitButton.textContent = "Creating...";
@@ -197,6 +227,15 @@ profileEditButton.addEventListener("click", () => {
   });
   editFormValidator.resetValidation();
   editProfilePopup.open();
+});
+
+avatarEditButton.addEventListener("click", () => {
+  const currentUserInfo = userInfo.getUserInfo();
+  avatarEditPopup.setInputValues({
+    avatar: currentUserInfo.avatar,
+  });
+  avatarFormValidator.resetValidation();
+  avatarEditPopup.open();
 });
 
 addCardButton.addEventListener("click", () => {

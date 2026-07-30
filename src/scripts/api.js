@@ -36,6 +36,13 @@ export default class Api {
     });
   }
 
+  updateAvatar({ avatar }) {
+    return this._request("/users/me/avatar", {
+      method: "PATCH",
+      body: JSON.stringify({ avatar }),
+    });
+  }
+
   addCard({ name, link }) {
     return this._request("/cards", {
       method: "POST",

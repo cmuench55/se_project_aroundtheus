@@ -15,6 +15,31 @@
   margin-right: 30px;
 }
 
+.profile__avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile__avatar-edit-button {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 0;
+  bottom: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5) url(../images/edit-button.svg) center no-repeat;
+  background-size: 18px 18px;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.profile__avatar-container:hover .profile__avatar-edit-button,
+.profile__avatar-edit-button:focus-visible {
+  opacity: 1;
+}
+
 .profile__info {
   display: grid;
   grid-template-columns: minmax(auto, 373px) auto;
