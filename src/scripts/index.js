@@ -2,12 +2,12 @@ import "../pages/index.css";
 import { validationConfig, cardSelector } from "./utils/utils.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
-import Section from "./Section.js";
-import PopupWithForm from "./PopupWithForm.js";
-import PopupWithImages from "./PopupWithImages.js";
-import PopupWithConfirmation from "./PopupWithConfirmation.js";
-import UserInfo from "./UserInfo.js";
-import Api, { getFallbackAppData } from "./api.js";
+import Section from "./components/Section.js";
+import PopupWithForm from "./components/PopupWithForms.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import PopupWithConfirmation from "./components/PopupWithConfirmation.js";
+import UserInfo from "./components/UserInfo.js";
+import Api, { getFallbackAppData } from "./components/Api.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const avatarEditButton = document.querySelector("#avatar-edit-button");
@@ -34,7 +34,7 @@ const editFormValidator = new FormValidator(validationConfig, profileEditForm);
 const avatarFormValidator = new FormValidator(validationConfig, avatarEditForm);
 const addFormValidator = new FormValidator(validationConfig, addCardForm);
 
-const imagePreviewPopup = new PopupWithImages({
+const imagePreviewPopup = new PopupWithImage({
   popupSelector: "#preview-modal",
 });
 
