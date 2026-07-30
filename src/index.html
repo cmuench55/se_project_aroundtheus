@@ -21,11 +21,19 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="Avatar"
-            class="profile__image"
-          />
+          <div class="profile__avatar-container">
+            <img
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="Avatar"
+              class="profile__image"
+            />
+            <button
+              class="profile__avatar-edit-button"
+              id="avatar-edit-button"
+              type="button"
+              aria-label="Edit profile picture"
+            ></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -86,6 +94,26 @@
       </div>
     </div>
 
+    <!-- Avatar Edit Modal -->
+    <div class="modal" id="avatar-edit-modal">
+      <div class="modal__container">
+        <button type="button" class="modal__close-btn"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" name="edit-avatar-form">
+          <input
+            class="modal__input"
+            type="url"
+            name="avatar"
+            id="avatar-link-input"
+            placeholder="Image Link"
+            required
+          />
+          <span class="modal__error" id="avatar-link-input-error"></span>
+          <button class="modal__button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
     <!-- Add Card Modal -->
     <div class="modal" id="add-card-modal">
       <div class="modal__container">
@@ -119,6 +147,17 @@
           <button class="modal__button" type="submit" id="modal-submit-btn">
             Create
           </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Delete confirmation modal -->
+    <div class="modal" id="confirm-modal">
+      <div class="modal__container">
+        <button type="button" class="modal__close-btn"></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <form class="modal__form" name="confirm-form">
+          <button class="modal__button" type="submit">Yes</button>
         </form>
       </div>
     </div>
