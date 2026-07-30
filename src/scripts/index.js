@@ -22,7 +22,7 @@ const userInfo = new UserInfo({
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "1b3cac0a-3105-41b5-b45b-c70fe76e4355",
+    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
     "Content-Type": "application/json",
   },
 });
@@ -110,7 +110,8 @@ function renderCard(cardItem) {
 }
 
 function loadInitialContent() {
-  Promise.all([api.getUserInfo(), api.getInitialCards()])
+  api
+    .getAppInfo()
     .then(([user, cards]) => {
       if (user) {
         userInfo.setUserInfo({

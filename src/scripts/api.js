@@ -17,6 +17,10 @@ export default class Api {
     });
   }
 
+  getAppInfo() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
+  }
+
   getUserInfo() {
     return this._request("/users/me");
   }
