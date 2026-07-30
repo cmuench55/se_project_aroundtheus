@@ -1,10 +1,12 @@
 class Card {
-  constructor(cardData, cardSelector, handleImageClick, handleDeleteClick) {
+  constructor(cardData, cardSelector, handleImageClick, handleDeleteClick, handleLikeClick) {
     this._id = cardData._id || cardData.id;
     this._name = cardData.name;
     this._link = cardData.link;
+    this._isLiked = Boolean(cardData.isLiked);
     this._handleImageClick = handleImageClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
     this._cardSelector = cardSelector;
   }
 
@@ -15,14 +17,29 @@ class Card {
       .cloneNode(true);
   }
 
+  _updateLikeButton() {
+    const likeButton = this._element.querySelector(".card__like-button");
+    likeButton.classList.toggle("card__like-button_active", this._isLiked);
+  }
+
   _setEventListeners() {
-    this._element
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._element
-          .querySelector(".card__like-button")
-          .classList.toggle("card__like-button_active");
-      });
+    const likeButton = this._element.querySelector(".card__like-button");
+    likeButton.addEventListener("click", () => {
+      if (!this._handleLikeClick) {
+        this._isLiked = !this._isLiked;
+        this._updateLikeButton();
+        return;
+      }
+
+      this._handleLikeClick(this._id, this._isLiked)
+        .then((updatedCard) => {
+          this._isLiked = Boolean(updatedCard.isLiked);
+          this._updateLikeButton();
+        })
+        .catch((error) => {
+          console.error("Unable to update like status.", error);
+        });
+    });
 
     this._element
       .querySelector(".card__delete-button")
@@ -48,6 +65,7 @@ class Card {
     titleEl.textContent = this._name;
 
     this._setEventListeners();
+    this._updateLikeButton();
     return this._element;
   }
 }

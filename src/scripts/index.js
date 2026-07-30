@@ -87,7 +87,8 @@ const cardSection = new Section(
         },
         (cardId, cardElement) => {
           deleteConfirmPopup.open(cardId, cardElement);
-        }
+        },
+        (cardId, isLiked) => api.changeLikeCardStatus(cardId, !isLiked)
       );
       cardSection.addItem(card.getView());
     },
@@ -104,7 +105,8 @@ function renderCard(cardItem) {
     },
     (cardId, cardElement) => {
       deleteConfirmPopup.open(cardId, cardElement);
-    }
+    },
+    (cardId, isLiked) => api.changeLikeCardStatus(cardId, !isLiked)
   );
 
   cardSection.addItem(card.getView());
@@ -149,6 +151,7 @@ function handleProfileEditSubmit(formValues) {
       userInfo.setUserInfo({
         name: profile.name,
         about: profile.about,
+        avatar: profile.avatar,
       });
       editProfilePopup.close();
     })
