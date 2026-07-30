@@ -1,46 +1,53 @@
-import { initialCards } from "./utils/utils.js";
+export default class Api {
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
+  }
 
-const BASE_URL = "https://around.nomoreparties.co/v1/web_es_cohort_05";
-const AUTH_TOKEN = "f455c59d-84dc-4ca4-92e9-7f63889c99e2";
+  _request(endpoint, options = {}) {
+    return fetch(`${this._baseUrl}${endpoint}`, {
+      headers: this._headers,
+      ...options,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
 
-function request(endpoint, options = {}) {
-  return fetch(`${BASE_URL}${endpoint}`, {
-    headers: {
-      authorization: AUTH_TOKEN,
-      "Content-Type": "application/json",
-    },
-    ...options,
-  }).then((res) => {
-    if (!res.ok) {
-      return res.json().then((errorPayload) => {
-        throw new Error(errorPayload.message || "Request failed");
-      });
-    }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
 
-    return res.json();
-  });
-}
+  getUserInfo() {
+    return this._request("/users/me");
+  }
 
-export function getInitialData() {
-  return Promise.all([request("/users/me"), request("/cards")]).then(
-    ([user, cards]) => ({ user, cards })
-  );
-}
+  getInitialCards() {
+    return this._request("/cards");
+  }
 
-export function updateUserProfile({ name, about }) {
-  return request("/users/me", {
-    method: "PATCH",
-    body: JSON.stringify({ name, about }),
-  });
-}
+  editProfile({ name, about }) {
+    return this._request("/users/me", {
+      method: "PATCH",
+      body: JSON.stringify({ name, about }),
+    });
+  }
 
-export function createCard({ name, link }) {
-  return request("/cards", {
-    method: "POST",
-    body: JSON.stringify({ name, link }),
-  });
-}
+  addCard({ name, link }) {
+    return this._request("/cards", {
+      method: "POST",
+      body: JSON.stringify({ name, link }),
+    });
+  }
 
-export function getFallbackCards() {
-  return initialCards;
+  deleteCard(cardId) {
+    return this._request(`/cards/${cardId}`, {
+      method: "DELETE",
+    });
+  }
+
+  changeLikeCardStatus(cardId, isLiked) {
+    return this._request(`/cards/likes/${cardId}`, {
+      method: isLiked ? "PUT" : "DELETE",
+    });
+  }
 }

@@ -1,12 +1,13 @@
 import "../pages/index.css";
-import { validationConfig, cardSelector } from "./utils/utils.js";
+import { validationConfig, cardSelector, initialCards } from "./utils/utils.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import Section from "./Section.js";
 import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImages from "./PopupWithImages.js";
+import PopupWithConfirmation from "./PopupWithConfirmation.js";
 import UserInfo from "./UserInfo.js";
-import { createCard, getFallbackCards, getInitialData, updateUserProfile } from "./api.js";
+import Api from "./Api.js";
 
 const profileEditButton = document.querySelector("#profile-edit-button");
 const addCardButton = document.querySelector("#add-card-button");
@@ -16,6 +17,14 @@ const addCardForm = document.forms["add-card-form"];
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   aboutSelector: ".profile__description",
+});
+
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/web_es_cohort_05",
+  headers: {
+    authorization: "f455c59d-84dc-4ca4-92e9-7f63889c99e2",
+    "Content-Type": "application/json",
+  },
 });
 
 const editFormValidator = new FormValidator(validationConfig, profileEditForm);
@@ -35,8 +44,24 @@ const addCardPopup = new PopupWithForm({
   handleFormSubmit: handleAddCardFormSubmit,
 });
 
+const deleteConfirmPopup = new PopupWithConfirmation({
+  popupSelector: "#confirm-modal",
+  handleConfirm: (cardId, cardElement) => {
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        cardElement.remove();
+        deleteConfirmPopup.close();
+      })
+      .catch((error) => {
+        console.error("Card deletion failed.", error);
+      });
+  },
+});
+
 editProfilePopup.setEventListeners();
 addCardPopup.setEventListeners();
+deleteConfirmPopup.setEventListeners();
 imagePreviewPopup.setEventListeners();
 
 editFormValidator.enableValidation();
@@ -45,9 +70,16 @@ addFormValidator.enableValidation();
 const cardSection = new Section(
   {
     renderer: (cardItem) => {
-      const card = new Card(cardItem, cardSelector, (name, link) => {
-        imagePreviewPopup.open(name, link);
-      });
+      const card = new Card(
+        cardItem,
+        cardSelector,
+        (name, link) => {
+          imagePreviewPopup.open(name, link);
+        },
+        (cardId, cardElement) => {
+          deleteConfirmPopup.open(cardId, cardElement);
+        }
+      );
       cardSection.addItem(card.getView());
     },
   },
@@ -55,16 +87,23 @@ const cardSection = new Section(
 );
 
 function renderCard(cardItem) {
-  const card = new Card(cardItem, cardSelector, (name, link) => {
-    imagePreviewPopup.open(name, link);
-  });
+  const card = new Card(
+    cardItem,
+    cardSelector,
+    (name, link) => {
+      imagePreviewPopup.open(name, link);
+    },
+    (cardId, cardElement) => {
+      deleteConfirmPopup.open(cardId, cardElement);
+    }
+  );
 
   cardSection.addItem(card.getView());
 }
 
 function loadInitialContent() {
-  getInitialData()
-    .then(({ user, cards }) => {
+  Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([user, cards]) => {
       if (user) {
         userInfo.setUserInfo({
           name: user.name,
@@ -74,6 +113,7 @@ function loadInitialContent() {
 
       cards.forEach((cardItem) => {
         renderCard({
+          _id: cardItem._id,
           name: cardItem.name,
           link: cardItem.link,
         });
@@ -81,7 +121,7 @@ function loadInitialContent() {
     })
     .catch((error) => {
       console.error("Unable to load remote data, using local fallback.", error);
-      getFallbackCards().forEach((cardItem) => {
+      initialCards.forEach((cardItem) => {
         renderCard(cardItem);
       });
     });
@@ -92,10 +132,11 @@ function handleProfileEditSubmit(formValues) {
   submitButton.textContent = "Saving...";
   submitButton.disabled = true;
 
-  updateUserProfile({
-    name: formValues.title,
-    about: formValues.description,
-  })
+  api
+    .editProfile({
+      name: formValues.title,
+      about: formValues.description,
+    })
     .then((profile) => {
       userInfo.setUserInfo({
         name: profile.name,
@@ -117,9 +158,11 @@ function handleAddCardFormSubmit(formValues) {
   submitButton.textContent = "Creating...";
   submitButton.disabled = true;
 
-  createCard({ name: formValues.title, link: formValues.link })
+  api
+    .addCard({ name: formValues.title, link: formValues.link })
     .then((newCard) => {
       renderCard({
+        _id: newCard._id,
         name: newCard.name,
         link: newCard.link,
       });
